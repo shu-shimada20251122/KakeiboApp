@@ -13,6 +13,7 @@ const startDateInput = document.getElementById("start-date");
 const endDateInput = document.getElementById("end-date");
 const filterCategory = document.getElementById("filter-category");
 const clearFiltersBtn = document.getElementById("clear-filters");
+const importBtn = document.getElementById("import-gmail");
 
 // Chart.js用の参照
 let pieChart, barChart;
@@ -47,6 +48,7 @@ clearFiltersBtn.addEventListener("click", () => {
   filterCategory.value = "";
   renderAll();
 });
+importBtn.addEventListener("click", importFromGmail);
 
 // ---- 関数群 ----
 
@@ -138,4 +140,26 @@ function renderAll() {
   renderList(filtered);
   summary.textContent = `合計: ${calcTotal(filtered).toLocaleString()} 円`;
   renderCharts(filtered);
+}
+
+// Gmailから取り込む（Apps ScriptのURLを設定して使う）
+const IMPORT_URL = "https://script.google.com/macros/s/AKfycbw7AVRWBX9QAA0u12NsAtjcywYpzHrruVCT0I_S6xFLEAUfDDu_G-AoaLKvfF1119Ra/exec";
+
+async function importFromGmail() {
+  try {
+    const res = await fetch(IMPORT_URL);
+    if (!res.ok) throw new Error("fetch failed");
+    const data = await res.json();
+    if (Array.isArray(data.entries)) {
+      entries.push(...data.entries);
+      saveEntries(entries);
+      renderAll();
+      alert(`Gmailから${data.entries.length}件取り込みました`);
+    } else {
+      alert("取り込みデータが不正です");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("取り込みに失敗しました");
+  }
 }
