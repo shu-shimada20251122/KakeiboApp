@@ -38,53 +38,53 @@
                 <button type="submit">追加</button>
             </form>
         </section>
-         <section class="card">
-      <h2>フィルタ</h2>
-      <div class="filters">
+        <section class="card">
+        <h2>フィルタ</h2>
+        <div class="filters">
         <label>開始日
-          <input type="date" id="start-date" />
+            <input type="date" id="start-date" />
         </label>
         <label>終了日
-          <input type="date" id="end-date" />
+        <input type="date" id="end-date" />
         </label>
         <label>カテゴリ
-          <select id="filter-category">
+        <select id="filter-category">
             <option value="">すべて</option>
             <option value="食費">食費</option>
             <option value="交通">交通</option>
             <option value="日用品">日用品</option>
             <option value="娯楽">娯楽</option>
             <option value="その他">その他</option>
-          </select>
+        </select>
         </label>
         <button id="clear-filters">クリア</button>
-      </div>
+    </div>
     </section>
 
     <section class="card">
-      <h2>サマリ</h2>
-      <div id="summary">合計: 0 円</div>
+    <h2>サマリ</h2>
+    <div id="summary">合計: 0 円</div>
     </section>
 
     <section class="card">
-      <h2>一覧</h2>
-      <table>
+    <h2>一覧</h2>
+    <table>
         <thead>
-          <tr><th>日付</th><th>カテゴリ</th><th>金額</th><th>メモ</th></tr>
+    <tr><th>日付</th><th>カテゴリ</th><th>金額</th><th>メモ</th></tr>
         </thead>
         <tbody id="entry-list"></tbody>
-      </table>
+    </table>
     </section>
 
     <section class="card charts">
-      <div>
+    <div>
         <h2>カテゴリ別</h2>
         <canvas id="pie-chart"></canvas>
-      </div>
-      <div>
+    </div>
+    <div>
         <h2>月別推移</h2>
         <canvas id="bar-chart"></canvas>
-      </div>
+    </div>
     </section>
     </main>
     <script src="main.js"></script>
