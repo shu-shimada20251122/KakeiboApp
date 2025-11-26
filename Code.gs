@@ -7,7 +7,7 @@ const ACCESS_TOKEN = "";
 // 店名に応じてカテゴリを決める簡易ルール
 function guessCategory(shop) {
   const rules = [
-    { keyword: /HOKKAIDOGASU|ｻﾂﾎﾟﾛｼｽｲﾄﾞｳｷﾖｸ/i, category: "光熱費" },
+    { keyword: /HOKKAIDOGASU|ｻﾂﾎﾟﾛｼｽｲﾄﾞｳｷﾖｸ/i, category: "光熱費" },//拾ってきたい文言も各自編集してください。
     { keyword: /AMAZON|SAPPORO DRAGSTORE/i, category: "日用品" },
     { keyword: /MYB|MVF|マック|MCD/i, category: "食費" },
     { keyword: /JR|PASMO|SUICA|バス/i, category: "交通" },
