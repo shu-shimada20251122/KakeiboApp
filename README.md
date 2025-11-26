@@ -1,4 +1,4 @@
-**家計簿アプリ（ローカル保存 + Gmail取り込み）**
+**家計簿アプリ（ローカル保存 + Gmail取り込み）** https://shu-shimada20251122.github.io/KakeiboApp/
 
 - アプリ概要  
   - ブラウザだけで動く家計簿。データは各自のブラウザの localStorage に保存。  
