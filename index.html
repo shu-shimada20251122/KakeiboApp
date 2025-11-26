@@ -8,8 +8,14 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header>
-        <h1>家計簿しまだ</h1>
+    <header class="hero">
+        <div class="hero-inner">
+            <div>
+                <p class="eyebrow">シンプル家計簿</p>
+                <h1>家計簿しまだ</h1>
+                <p class="tagline">毎日の入出金をサクッと記録して、グラフで可視化。</p>
+            </div>
+        </div>
     </header>
 
     <main>
@@ -38,7 +44,7 @@
                 <button type="submit">追加</button>
             </form>
         </section>
-        <section class="card">
+    <section class="card">
         <h2>フィルタ</h2>
         <div class="filters">
         <label>開始日
@@ -50,11 +56,6 @@
         <label>カテゴリ
         <select id="filter-category">
             <option value="">すべて</option>
-            <option value="食費">食費</option>
-            <option value="交通">交通</option>
-            <option value="日用品">日用品</option>
-            <option value="娯楽">娯楽</option>
-            <option value="その他">その他</option>
         </select>
         </label>
         <button id="clear-filters">クリア</button>
@@ -62,18 +63,42 @@
     </section>
 
     <section class="card">
+      <h2>カテゴリ管理</h2>
+      <div class="add-category">
+        <input type="text" id="new-category" placeholder="カテゴリ名を入力" />
+        <button id="add-category-btn">追加</button>
+      </div>
+    </section>
+
+    <section class="card summary-card">
       <h2>サマリ</h2>
       <div id="summary">合計: 0 円</div>
     </section>
 
     <section class="card">
       <h2>連携</h2>
-      <p>Gmailの通知から取り込みたいときに押してください。</p>
+      <p>Gmailの通知から取り込みたいときに押してください。URLはローカルに保存されます。</p>
+      <div class="import-config">
+        <input type="url" id="import-url" placeholder="Apps ScriptのURLを入力" />
+        <button id="save-import-url">URLを保存</button>
+      </div>
       <button id="import-gmail">Gmailから取り込む</button>
+      <p id="last-import" class="muted-text">最後の取り込み: 未実行</p>
     </section>
 
     <section class="card">
       <h2>一覧</h2>
+      <div class="period-switcher">
+        <div class="toggle-group">
+          <button id="view-month" class="active">月</button>
+          <button id="view-week">週</button>
+        </div>
+        <div class="nav">
+          <button id="prev-period" aria-label="前へ">←</button>
+          <div id="period-label"></div>
+          <button id="next-period" aria-label="次へ">→</button>
+        </div>
+      </div>
       <table>
         <thead>
           <tr><th>日付</th><th>カテゴリ</th><th>金額</th><th>メモ</th><th>操作</th></tr>
@@ -83,14 +108,18 @@
     </section>
 
     <section class="card charts">
-    <div>
+      <div>
         <h2>カテゴリ別</h2>
         <canvas id="pie-chart"></canvas>
-    </div>
-    <div>
-        <h2>月別推移</h2>
-        <canvas id="bar-chart"></canvas>
-    </div>
+        <div id="category-breakdown" class="category-breakdown"></div>
+      </div>
+    </section>
+
+    <section class="card charts">
+      <div>
+        <h2>推移</h2>
+        <canvas id="trend-chart"></canvas>
+      </div>
     </section>
     </main>
     <script src="main.js"></script>
