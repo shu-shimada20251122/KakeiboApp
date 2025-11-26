@@ -470,9 +470,8 @@ async function importFromGmail() {
       alert("Apps ScriptのURLを設定してください");
       return;
     }
-    const res = await fetch(importUrl);
-    if (!res.ok) throw new Error("fetch failed");
-    const data = await res.json();
+    // CORSを避けるためJSONPで取得
+    const data = await jsonpRequest(importUrl);
     if (Array.isArray(data.entries)) {
       const normalized = data.entries.map((item) => {
         const combinedMemo = [item.cardCompany, item.usage, item.memo].filter(Boolean).join(" / ");
@@ -496,6 +495,30 @@ async function importFromGmail() {
     }
   } catch (err) {
     console.error(err);
-    alert("取り込みに失敗しました");
+    alert(`取り込みに失敗しました: ${err.message}`);
   }
+}
+
+// JSONPでApps Scriptを叩く
+function jsonpRequest(url) {
+  return new Promise((resolve, reject) => {
+    const callbackName = `jsonp_cb_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+    const sep = url.includes("?") ? "&" : "?";
+    const script = document.createElement("script");
+    script.src = `${url}${sep}callback=${callbackName}`;
+    script.onerror = () => {
+      cleanup();
+      reject(new Error("JSONP request failed"));
+    };
+    window[callbackName] = (data) => {
+      cleanup();
+      resolve(data);
+    };
+    document.body.appendChild(script);
+
+    function cleanup() {
+      delete window[callbackName];
+      script.remove();
+    }
+  });
 }
